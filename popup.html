@@ -1,0 +1,88 @@
+<!doctype html>
+
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+
+<html>
+  <head>
+    <title>Getting Started Extension's Popup</title>
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+
+     <!-- javascript file for popup.html -->
+
+    <script src="moment.min.js"></script>
+    <script src="popup.js"></script>
+  </head>
+
+  <body>
+
+    <!-- STATUS -->
+
+    <div>
+      <h3>Status</h3>
+      <p id="status">Awaiting DOM Load</p>
+    </div>
+
+    <!-- TRELLO DETAILS -->
+
+    <div>
+
+      <h3>Trello Details</h3>
+
+      <h4>Board Title</h4>
+      <p id="board_title">waiting...</p>
+
+      <h4>Card Title</h4>
+      <p id="card_title">waiting...</p>
+
+      <h4>Card URL</h4>
+      <p id="card_url">waiting...</p>
+
+      <h4>Date Start</h4>
+      <p id="card_date">waiting...</p>
+
+    </div>
+
+    <!-- EDITABLE CALENDAR DETAILS -->
+    <form>
+
+      <h3>Calendar Details</h3>
+
+      Title<br>
+      <input type="text" name="title" id="calendar_title" value="">
+      <br>
+
+      Description<br>
+      <input type="text" name="description" id="calendar_description" value="">
+      <br>
+
+<!-- HIDDEN UNTIL DATE PARSING IS SORTED
+
+      Start<br>
+      <input type="text" name="start" id="calendar_start" value="">
+      <br>
+
+      End<br>
+      <input type="text" name="end" id="calendar_end" value="">
+      <br>
+
+ -->
+
+    </form>
+
+    <!-- NEW CALENDAR EVENT BUTTON -->
+
+    <button id="new_calendar_event">New Calendar Event</button>
+
+  </body>
+</html>
+
