@@ -8,8 +8,7 @@
 
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
-
+    <title>Trello to google calendar</title>
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
       - Policy documentation[1] for details and explanation.
@@ -21,10 +20,12 @@
 
     <script src="moment.min.js"></script>
     <script src="popup.js"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
 
+<div class="popup-container">
     <!-- STATUS -->
 
     <div>
@@ -57,32 +58,20 @@
 
       <h3>Calendar Details</h3>
 
-      Title<br>
+      <h4>Title</h4>
       <input type="text" name="title" id="calendar_title" value="">
       <br>
 
-      Description<br>
+      <h4>Description</h4>
       <input type="text" name="description" id="calendar_description" value="">
       <br>
-
-<!-- HIDDEN UNTIL DATE PARSING IS SORTED
-
-      Start<br>
-      <input type="text" name="start" id="calendar_start" value="">
-      <br>
-
-      End<br>
-      <input type="text" name="end" id="calendar_end" value="">
-      <br>
-
- -->
 
     </form>
 
     <!-- NEW CALENDAR EVENT BUTTON -->
 
     <button id="new_calendar_event">New Calendar Event</button>
-
+</div>
   </body>
 </html>
 

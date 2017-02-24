@@ -51,9 +51,20 @@ document.addEventListener('DOMContentLoaded', function() {
           var title = document.getElementById('calendar_title').value;
           var description = document.getElementById('calendar_description').value;
 
-          var dueDate = document.getElementById("card_date").textContent
-          var startTime = moment(dueDate,'MMM D [at] h:mm A').toISOString();
+          var dueDate = document.getElementById("card_date").textContent.split(" ");
+          var dateStr = dueDate.toString();
+          var dateFormatStr = 'MMM D';
 
+          if (dateStr.indexOf("today") >= 0) {
+            dueDate[0] = moment().format(dateFormatStr);
+          } else if (dateStr.indexOf("yesterday") >= 0) {
+            dueDate[0] = moment().subtract(1, 'days').format(dateFormatStr);
+          } else if (dateStr.indexOf("tomorrow") >= 0) {
+            dueDate[0] = moment().add(1, 'days').format(dateFormatStr);
+          }
+
+          var startTime = moment(dueDate.join(" "),'MMM D [at] h:mm A').format('YYYYMMDD[T]Hmmss[Z]');
+          
           /* Create new tab with new calendar event */
           newCalendarTab(title, description, startTime, startTime);
 
