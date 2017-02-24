@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
           var startTime = moment(dueDate,'MMM D [at] h:mm A').toISOString();
 
           /* Create new tab with new calendar event */
-          console.log(newCalendarTab(title, description, startTime, startTime));
+          newCalendarTab(title, description, startTime, startTime);
 
         });
 
