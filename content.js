@@ -31,8 +31,10 @@ function getTrelloCardURL() {
 
 function getTrelloCardDueDate() {
 	var result = document.getElementsByClassName('card-detail-due-date-text')[0].innerHTML;
-	return result;
+  return result;
 };
+
+
 
 
 /* Create Event Listener for messages from popup.js */
@@ -50,14 +52,14 @@ chrome.runtime.onMessage.addListener(
     		var this_card_url = getTrelloCardURL();
     		var this_card_date = getTrelloCardDueDate();
 
-			/* Send response to popup.js */
-      		sendResponse({
-  				success: "true",
-  				board_title: this_board_title,
-  				card_title: this_card_title,
-  				card_url: this_card_url,
-  				card_date: this_card_date
-      		});
-	  	};
-  	}
+      /* Send response to popup.js */
+          sendResponse({
+          success: "true",
+          board_title: this_board_title,
+          card_title: this_card_title,
+          card_url: this_card_url,
+          card_date: this_card_date
+          });
+      };
+    }
 );
