@@ -2,6 +2,8 @@
 * Check whether the URL in the browser window is a Trello Card
 */
 
+
+
 function renderStatus(text)
 {
     document.getElementById('status').innerHTML = text;
@@ -32,6 +34,7 @@ function decodeHtml(html) {
     return txt.value;
 }
 
+
 /* Create Event Listener once DOM Content Loaded */
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -48,29 +51,22 @@ document.addEventListener('DOMContentLoaded', function() {
           var title = document.getElementById('calendar_title').value;
           var description = document.getElementById('calendar_description').value;
 
-          // holding place until date algorithm is sorted.
-          var today = new Date();
+          var dueDate = document.getElementById("card_date").textContent.split(" ");
+          var dateStr = dueDate.toString();
+          var dateFormatStr = 'MMM D';
 
-          // set start date as +1 hour from now [rounded up]
-          // end date as +2 hours rom now [rounded up]
-          var start = today.getFullYear();
+          if (dateStr.indexOf("today") >= 0) {
+            dueDate[0] = moment().format(dateFormatStr);
+          } else if (dateStr.indexOf("yesterday") >= 0) {
+            dueDate[0] = moment().subtract(1, 'days').format(dateFormatStr);
+          } else if (dateStr.indexOf("tomorrow") >= 0) {
+            dueDate[0] = moment().add(1, 'days').format(dateFormatStr);
+          }
 
-          start += ("0" + (today.getMonth() + 1)).slice(-2);
-          start += ("0" + (today.getDate() + 1)).slice(-2);
-          start += "T";
-
-          var end = start;
-
-          start += ("0" + (today.getHours() + 2)).slice(-2);
-          start += "0000";
-          start += "Z";
-
-          end += ("0" + (today.getHours() + 3)).slice(-2);
-          end += "0000";
-          end += "Z";
-
+          var startTime = moment(dueDate.join(" "),'MMM D [at] h:mm A').format('YYYYMMDD[T]Hmmss[Z]');
+          
           /* Create new tab with new calendar event */
-          newCalendarTab(title, description, start, end);
+          newCalendarTab(title, description, startTime, startTime);
 
         });
 
@@ -83,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
           /* Send message to  content.js in current tab */
           chrome.tabs.sendMessage(tabs[0].id, {message: "gettrellodetails"}, function(response) {
               /* ON RESPONSE */
+
 
               /* update status */
               renderStatus('Response received');
@@ -99,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function() {
               /* update Calendar Details based on response from content.js */
               document.getElementById('calendar_title').value = decodeHtml(response.card_title + " [" + response.board_title + "]");
               document.getElementById('calendar_description').value = response.card_url;
-//              document.getElementById('calendar_start').value = response.card_date;
-//              document.getElementById('calendar_end').value = response.card_date;
+             // document.getElementById('calendar_start').value = response.card_date;
+             // document.getElementById('calendar_end').value = response.card_date;
 
               renderStatus('Response processed');
 
